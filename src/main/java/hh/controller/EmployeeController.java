@@ -3,10 +3,9 @@ package hh.controller;
 
 import hh.model.dto.request.EmployeeRequest;
 import hh.model.dto.response.EmployeeResponse;
-import hh.model.entity.Employee;
 import hh.exception.CustomsException;
 
-import hh.service.IEmployeeServiceIml;
+import hh.service.iml.IEmployeeServiceIml;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -28,14 +26,14 @@ public class EmployeeController {
     @GetMapping("/search")
     public ResponseEntity<Page<EmployeeResponse>> searchEmployee(
             @PageableDefault(page = 0, size = 3) Pageable pageable,
-            @RequestParam(value = "search", defaultValue = "") String search
-    ) {
-        Page<EmployeeResponse> employeePage = employeeServiceIml.getEmployees(pageable, search);
+            @RequestParam(value = "search", defaultValue = "") String search) {
+        Page<EmployeeResponse> employeePage = employeeServiceIml.getAll(pageable, search);
         return new ResponseEntity<>(employeePage, HttpStatus.OK);
     }
+
     @GetMapping("/")
     public ResponseEntity<List<EmployeeResponse>> getEmployees() {
-        return new ResponseEntity<>(employeeServiceIml.getEmployees(), HttpStatus.OK);
+        return new ResponseEntity<>(employeeServiceIml.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

@@ -14,23 +14,23 @@ import java.util.Set;
 @Data
 @Builder
 public class Employee {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
-        private String name;
-        private String  email;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private String email;
+    private String password;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "department_id")
+    private Department department;
 
-        @ManyToOne(fetch = FetchType.EAGER)
-        @JoinColumn(name = "department_id")
-        private Department department;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "employee_role"
+            , joinColumns = @JoinColumn(name = "employee_id")
+            , inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> role;
 
-        @ManyToMany(fetch = FetchType.EAGER)
-        @JoinTable(name = "employee_role"
-                ,joinColumns = @JoinColumn(name = "employee_id")
-                ,inverseJoinColumns = @JoinColumn(name="role_id"))
-        private Set<Role> role;
-
-        private boolean status;
+    private boolean status;
 
 
 }

@@ -16,7 +16,8 @@ import java.util.Set;
 public class EmployeeResponse {
     private Long id;
     private String name;
-    private String  email;
+    private String email;
+    private String password;
     private Department department;
     private Set<Role> role;
     private boolean status;

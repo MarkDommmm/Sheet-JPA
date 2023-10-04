@@ -9,8 +9,8 @@ import java.util.List;
 
 @Service
 public interface IGenericService<T,K, E> {
-    Page<T> getEmployees(Pageable pageable, String search);
-    List<T> getEmployees();
+    Page<T> getAll(Pageable pageable, String search);
+    List<T> getAll();
 
     T save(K k) throws CustomsException;
 

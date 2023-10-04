@@ -4,7 +4,9 @@ import hh.model.dto.request.DepartmentRequest;
 import hh.model.dto.response.DepartmentResponse;
 import hh.model.entity.Department;
 import hh.service.IGenericMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DepartmentMapper implements IGenericMapper<Department, DepartmentRequest, DepartmentResponse> {
     @Override
     public Department toEntity(DepartmentRequest departmentRequest) {

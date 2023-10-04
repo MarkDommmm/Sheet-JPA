@@ -1,6 +1,6 @@
 package hh.service.mapper;
 
-import hh.Repository.IDepartment;
+import hh.Repository.IDepartmentRepo;
 import hh.Repository.IRoleRepo;
 import hh.exception.CustomsException;
 import hh.model.dto.request.EmployeeRequest;
@@ -12,14 +12,13 @@ import hh.service.IGenericMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @Component
 public class EmployeeMapper implements IGenericMapper<Employee, EmployeeRequest, EmployeeResponse> {
     @Autowired
-    private IDepartment department;
+    private IDepartmentRepo department;
     @Autowired
     private IRoleRepo roleRepo;
 
@@ -34,9 +33,11 @@ public class EmployeeMapper implements IGenericMapper<Employee, EmployeeRequest,
             throw  new CustomsException("Couldn't find role list");
         }
         return Employee.builder()
+                .id(employeeRequest.getId())
                 .name(employeeRequest.getName())
                 .email(employeeRequest.getEmail())
                 .department(d.get())
+                .password(employeeRequest.getPassword())
                 .role(roleList)
                 .status(employeeRequest.isStatus())
                 .build();
@@ -49,6 +50,7 @@ public class EmployeeMapper implements IGenericMapper<Employee, EmployeeRequest,
                 .name(employee.getName())
                 .email(employee.getEmail())
                 .department(employee.getDepartment())
+                .password(employee.getPassword())
                 .role(employee.getRole())
                 .status(employee.isStatus())
                 .build();
